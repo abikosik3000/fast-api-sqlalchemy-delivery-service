@@ -1,2 +1,2 @@
-docker-compose -f docker-compose_pg_admin.yml build
-docker-compose -f docker-compose_pg_admin.yml up --build
+docker-compose -f dev-docker-compose.yml build
+docker-compose -f dev-docker-compose.yml up --build
