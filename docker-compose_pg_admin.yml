@@ -1,0 +1,50 @@
+version: "3.9"
+
+services:
+  app:
+    container_name: app
+    build: .
+    volumes:
+      - /home/abikosik3000/var/www/shbr/36016-tsygankovnivi-97/app:/app/app
+      - /home/abikosik3000/var/www/shbr/36016-tsygankovnivi-97/tests:/app/tests
+    ports:
+      - 8080:8080
+    restart: always
+    depends_on:
+      - db
+    links:
+      - db
+    networks:
+      - enrollment
+
+
+  db:
+    container_name: db
+    image: postgres:15.2-alpine
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+    networks:
+      - enrollment
+
+  pgadmin:
+    container_name: pgadmin
+    image: dpage/pgadmin4:latest
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@yandex.ru
+      PGADMIN_DEFAULT_PASSWORD: root
+      PGADMIN_LISTEN_PORT: 80
+    ports:
+    - :80
+    links:
+    - "db:pgsql-server"
+    depends_on:
+    - db
+    networks:
+    - enrollment
+
+networks:
+  enrollment:
+    driver: bridge
