@@ -14,5 +14,5 @@ COPY --from=builder /app /app
 COPY . .
 
 EXPOSE 8000
-# add reload
+
 CMD /app/bin/uvicorn app.main:app --host=0.0.0.0 --port=8080 --reload
